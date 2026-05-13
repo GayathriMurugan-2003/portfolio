@@ -44,32 +44,42 @@ const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
 contactForm.addEventListener("submit", function (event) {
-    // Prevent page refresh
     event.preventDefault();
 
-    // Get input values and remove extra spaces
+    // Get values
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    // Email validation pattern
+    // Patterns
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Check if name is empty
+    // Indian phone number validation (10 digits, optional +91)
+    const phonePattern = /^(?:\+91)?[6-9]\d{9}$/;
+
+    // Name validation
     if (name === "") {
         formMessage.textContent = "Please enter your name.";
         formMessage.style.color = "#CA6180";
         return;
     }
 
-    // Check if email is valid
+    // Email validation
     if (!emailPattern.test(email)) {
         formMessage.textContent = "Please enter a valid email address.";
         formMessage.style.color = "#CA6180";
         return;
     }
 
-    // Check if message is empty
+    // Phone validation
+    if (!phonePattern.test(phone)) {
+        formMessage.textContent = "Please enter a valid phone number.";
+        formMessage.style.color = "#CA6180";
+        return;
+    }
+
+    // Message validation
     if (message === "") {
         formMessage.textContent = "Please enter your message.";
         formMessage.style.color = "#CA6180";
@@ -80,7 +90,7 @@ contactForm.addEventListener("submit", function (event) {
     formMessage.textContent = "Message sent successfully! Thank you for contacting me.";
     formMessage.style.color = "lightgreen";
 
-    // Clear the form
+    // Reset form
     contactForm.reset();
 });
 
